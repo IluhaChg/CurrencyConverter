@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.util.TypedValue;
 
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -6,12 +6,10 @@ package ru.test_ip.currencyconverter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
@@ -67,7 +65,6 @@ public class Converter {
         try {
             valuteCurs = serializer.read(ValCurs.class, context.openFileInput("cacheCurs"));
         }catch(Exception e){
-            e.printStackTrace();
             valuteCurs = null;
             return false;
         }
