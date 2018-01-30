@@ -19,7 +19,9 @@ import java.net.URL;
  */
 
 
-
+/*
+ * Класс Downloader отвечате за асинхронную подгузку курса валют по сети и безусловно кэширует его
+ */
 public class Downloader extends AsyncTask<Void,Void,Boolean> {
 
     public interface iMessageDownloader {

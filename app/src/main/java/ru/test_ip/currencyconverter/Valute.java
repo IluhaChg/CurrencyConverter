@@ -12,6 +12,11 @@ import org.simpleframework.xml.Root;
 import java.util.HashMap;
 import java.util.List;
 
+/*
+ * Класс ValCurs является отображением структуры полученного XML курса валют
+ * Так же содержит в себе вспомогательные поля для оптимизации доступа
+ */
+
 @Root(name="ValCurs")
 class ValCurs {
 

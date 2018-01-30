@@ -24,6 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/*
+ * Класс ValutesAdapter - адаптер к перечню доступных валют при выборе их в виджетах конвертации
+ */
 
 class ValutesAdapter extends BaseAdapter implements SpinnerAdapter {
     Context context;
@@ -94,6 +97,10 @@ class ValutesAdapter extends BaseAdapter implements SpinnerAdapter {
     }
 }
 
+/*
+ * Класс MainActivity основного окна программы
+ */
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     Converter valuteConverter;
@@ -108,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onReceive(Context context, Intent intent) {
             MainActivity.this.fillData();
+            MainActivity.this.calculate();
         }
     }
     UpdateExchangeRateReceiver uerr;
@@ -172,9 +180,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    @Override
-    public void onClick(View view) {
+    public void calculate(){
         float sum;
+        if (in_sum.getText().length() == 0){
+            out_sum.setText("");
+            not_actual.setVisibility(View.INVISIBLE);
+            return;
+        }
         try{
             sum = Float.valueOf(in_sum.getText().toString());
         }catch (NumberFormatException e){
@@ -192,5 +204,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             not_actual.setVisibility(View.INVISIBLE);
         else
             not_actual.setVisibility(View.VISIBLE);
+    }
+    @Override
+    public void onClick(View view) {
+        calculate();
     }
 }

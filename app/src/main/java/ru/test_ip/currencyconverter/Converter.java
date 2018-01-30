@@ -15,7 +15,10 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-
+/*
+ * Класс Converter отвечает за данные (контролирует подгрузку из сети, выполняет вычисления, отдает сформированный перечень валют)
+ *
+ */
 public class Converter {
     static private Converter instance;
     static public synchronized Converter getInstance(Context context){
@@ -42,6 +45,7 @@ public class Converter {
         }
         return false;
     }
+
     public boolean isExistsExchangeRate(){
         if(valuteCurs == null) return false;
         return true;
@@ -77,6 +81,7 @@ public class Converter {
         return Collections.unmodifiableList(valuteCurs.valutes);
     }
 
+    // Основная функция конвертации из одной валюты в другую
     public float convert(float sum,long fromValute,long toValute){
         Valute vfrom = valuteCurs.mvalutes.get(fromValute),
                vto   = valuteCurs.mvalutes.get(toValute);
