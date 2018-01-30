@@ -3,4 +3,8 @@
     <string name="urlCBR">http://www.cbr.ru/scripts/XML_daily.asp</string>
     <string name="errorInput">Ошибка ввода суммы</string>
     <string name="errorConvert">Ошибка конвертации</string>
+    <string name="errorExistExchangeRate">Курсы валют отсутствуют</string>
+    <string name="actionUpdateExchangeRate">actionUER</string>
+
+
 </resources>

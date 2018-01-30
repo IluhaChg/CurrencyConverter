@@ -4,6 +4,9 @@ package ru.test_ip.currencyconverter;
  * Created by Илья on 29.01.2018.
  */
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
@@ -26,15 +29,12 @@ public class Converter {
 
     Converter(Context context){
         this.context = context;
+        readExchangeRate();
     }
     Context context;
 
 
     private ValCurs valuteCurs = null;
-
-    Converter(){
-        readExchangeRate();
-    }
 
     public boolean isActualExchangeRate(){
         final SimpleDateFormat dateCurseFormat = new SimpleDateFormat("dd.MM.yyyy");
@@ -44,12 +44,18 @@ public class Converter {
         }
         return false;
     }
+    public boolean isExistsExchangeRate(){
+        if(valuteCurs == null) return false;
+        return true;
+    }
 
 
     class DownloadNotifer implements Downloader.iMessageDownloader{
         @Override
         public void onCompleted() {
             Converter.this.readExchangeRate();
+            Intent intent = new Intent(context.getApplicationContext().getString(R.string.actionUpdateExchangeRate));
+            LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
         }
     }
     public void updateExchangeRate(){
@@ -59,7 +65,7 @@ public class Converter {
     public synchronized boolean readExchangeRate(){
         Serializer serializer = new Persister();
         try {
-            valuteCurs = serializer.read(ValCurs.class, new File(context.getFilesDir(), "cacheCurs"));
+            valuteCurs = serializer.read(ValCurs.class, context.openFileInput("cacheCurs"));
         }catch(Exception e){
             e.printStackTrace();
             valuteCurs = null;
@@ -70,8 +76,7 @@ public class Converter {
     }
 
     public List<Valute> getListValutes(){
-        valuteCurs = new ValCurs();
-        valuteCurs.prepareData();
+        if(valuteCurs == null) return null;
         return Collections.unmodifiableList(valuteCurs.valutes);
     }
 
@@ -80,7 +85,7 @@ public class Converter {
                vto   = valuteCurs.mvalutes.get(toValute);
         if (vfrom == null || vto == null) return -1;
         if( vfrom.value == 0 || vto.nominal == 0) return -1;
-        return sum * vfrom.nominal / vfrom.value * vto.value / vto.nominal ;
+        return sum * vfrom.value / vfrom.nominal / vto.value * vto.nominal;
 
     }
 

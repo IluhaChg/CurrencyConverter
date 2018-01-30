@@ -36,10 +36,9 @@ public class Downloader extends AsyncTask<Void,Void,Boolean> {
     }
 
     private synchronized boolean writeCacheCurs(ByteArrayOutputStream ba){
-        File file = new File(context.getFilesDir(), "cacheCurs");
         FileOutputStream out;
         try{
-            out = context.openFileOutput(file.toString(),Context.MODE_PRIVATE);
+            out = context.openFileOutput("cacheCurs",Context.MODE_PRIVATE);
             out.write(ba.toByteArray());
             out.close();
         } catch (FileNotFoundException e) {

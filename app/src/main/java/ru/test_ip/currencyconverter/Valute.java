@@ -16,15 +16,17 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-@Root
+@Root(name="ValCurs")
 class ValCurs {
 
-     @ElementList(inline=true)
-     public List<Valute> valutes = new ArrayList<Valute>();
+     @ElementList(entry="Valute",inline=true)
+     public List<Valute> valutes;
      public HashMap<Long,Valute> mvalutes;
 
-     @Attribute
+     @Attribute(name="Date")
      public String date;
+     @Attribute(name="name")
+     private String nxml;
 
 
      public void prepareData(){
@@ -34,11 +36,12 @@ class ValCurs {
             rub.numCode = 0;
             rub.charCode = "RUB";
             rub.nominal = 1;
-            rub.nameValute = "Российский рубль";
-            rub.value = 1;
+            rub.name = "Российский рубль";
+            rub.valueString = "1";
             valutes.add(rub);
 
             for (Valute v: valutes) {
+                v.value = Float.valueOf(v.valueString.replace(',','.'));
                 mvalutes.put(v.numCode,v);
             }
         }
@@ -46,13 +49,20 @@ class ValCurs {
      }
 
 }
-
+@Root(name="Valute")
 public class Valute {
+    @Attribute(name="ID")
     public String valuteId;
+    @Element(name="NumCode")
     public long numCode;
+    @Element(name="CharCode")
     public String charCode;
+    @Element(name="Nominal")
     public int nominal;
-    public String nameValute;
+    @Element(name="Name")
+    public String name;
+    @Element(name="Value")
+    public String valueString;
     public float value;
 
 }
