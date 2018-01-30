@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Конвертер валют</string>
+    <string name="urlCBR">http://www.cbr.ru/scripts/XML_daily.asp</string>
+    <string name="errorInput">Ошибка ввода суммы</string>
+    <string name="errorConvert">Ошибка конвертации</string>
 </resources>
